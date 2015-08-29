@@ -6,5 +6,11 @@ module.exports = {
 		145,
 		200
 	],
-	k: 0.01
+	controls: [
+		81,
+		87,
+		69
+	],
+	k: 0.01,
+	pipedur: 250
 };

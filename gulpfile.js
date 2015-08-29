@@ -38,7 +38,7 @@ program
 var prod = !!program.prod;
 
 gulp.task('default', ['build']);
-gulp.task('build', ['build_source', 'build_index', 'build_styles', 'build_img']);
+gulp.task('build', ['build_source', 'build_index', 'build_styles', 'build_img', "build_audio"]);
 
 gulp.task('build_source', function() {
   var bundler = browserify('./src/main', {debug: !prod});
@@ -60,6 +60,11 @@ gulp.task("build_img", function(){
         .pipe(imagemin({
         }))
         .pipe(gulp.dest('build/assets'));
+});
+
+gulp.task("build_audio", function(){
+  return gulp.src("assets/*.wav")
+      .pipe(gulp.dest("build/assets"));
 });
 
 gulp.task('build_index', function() {
@@ -115,6 +120,7 @@ gulp.task('dist', ['build'], function() {
 
 gulp.task('watch', function() {
   gulp.watch('assets/*.png', ['build_img']);
+  gulp.watch("assets/*.wav", ["build_audio"]);
   gulp.watch('src/**/*.js', ['lint', 'build_source']);
   gulp.watch('src/styles.less', ['build_styles']);
   gulp.watch('src/index.html', ['build_index']);
