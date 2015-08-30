@@ -1,6 +1,5 @@
 var Mario = require("./mario");
 var Pipe = require("./pipe");
-var dbc = require("../debug/curve");
 var rules = require("./rules");
 module.exports = function() {
 	this.scale = 2;
@@ -24,6 +23,7 @@ module.exports = function() {
 	this.createMario = function() {
 		var mario = new Mario();
 		mario.onSpawn();
+		//var dbc = require("../debug/curve");
 		//this.sprites = this.sprites.concat(dbc(mario.path));
 		this.sprites.splice(1, 0, mario);
 	};

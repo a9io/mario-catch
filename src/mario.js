@@ -5,12 +5,14 @@ var audio = require("./audio");
 module.exports = function() {
 	this.width = 12;
 	this.height = 16;
+	this.opacity = 1;
 	this.x = -15;
 	this.y = 34 - this.height;
 	this.type = "img";
 	this.name = "mario";
 	this.src = "mario.png";
 	this.lost = false;
+	this.fading = false;
 	this.destpipe = 0;
 	this.path = {
 		x: [-15, 17, 30],
@@ -41,10 +43,16 @@ module.exports = function() {
 		if(this.x > this.path.x[1]) this.y = curve(this.x, this.path); // curve if not on deck
 		if(this.x == this.path.x[1] + 10) audio.play("jump");
 		this.x++;
-		if(this.y <= rules.water) setTimeout(this.tick.bind(this), 10);
+		if(this.y < rules.water) setTimeout(this.tick.bind(this), 10);
 		else {
-			this.lost = true;
+			this.fading = true;
+			this.fadeOut();
 		}
+	};
+	this.fadeOut = function(){
+		this.opacity -= 0.1;
+		if(this.opacity > 0.1) setTimeout(this.fadeOut.bind(this), 50);
+		else this.lost = true;
 	};
 	this.begin = function() {
 		this.generateCurve();

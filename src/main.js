@@ -17,7 +17,7 @@ var checkLoop = function() {
 				var p = pipes[s.destpipe];
 				if (s.lost) {
 					state.sprites.splice(i, 1);
-				} else if (p.active && (s.x > p.x && s.x < p.x + 30) && (s.y >= p.y)) {
+				} else if (p.active && (s.x > p.x && s.x < p.x + 30) && (s.y >= p.y) && !(p.fading)) {
 					state.sprites.splice(i, 1);
 				}
 			}
