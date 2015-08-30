@@ -40,10 +40,10 @@ module.exports = function() {
 			name: "water",
 			color: "#15DCE2",
 			opacity: 0.5,
-			y: 120,
+			y: rules.water,
 			x: 0,
 			width: 300,
-			height: 30
+			height: 35
 		});
 	};
 };

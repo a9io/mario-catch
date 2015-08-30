@@ -9,18 +9,22 @@ module.exports = function() {
 	this.width = 30;
 	this.height = 100;
 	this.pipen = 0;
+	this.active = false;
 	this.animating = false;
 	this.down = false;
 	this.animate = function() {
 		this.animating = true;
+		this.active = true;
 		audio.play("pipe");
 		this.tick();
 	};
 	this.animationDone = function() {
 		this.down = false;
 		this.animating = false;
+		this.active = false;
 	};
 	this.tick = function() {
+		var v;
 		if (!this.down) this.y--;
 		else this.y++;
 		if (this.y == 80) this.down = true;

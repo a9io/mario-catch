@@ -1,6 +1,6 @@
 module.exports = {
 	bottom: 300,
-	water: 120,
+	water: 115,
 	pipes: [
 		90,
 		145,
