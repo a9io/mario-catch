@@ -11,8 +11,9 @@ module.exports = function() {
 	this.type = "img";
 	this.name = "mario";
 	this.src = "mario.png";
-	this.lost = false;
+	this.remove = false;
 	this.fading = false;
+	this.reached = false;
 	this.destpipe = 0;
 	this.path = {
 		x: [-15, 17, 30],
@@ -44,15 +45,16 @@ module.exports = function() {
 		if(this.x == this.path.x[1] + 10) audio.play("jump");
 		this.x++;
 		if(this.y < rules.water) setTimeout(this.tick.bind(this), 10);
-		else {
+		else if(!this.reached){
 			this.fading = true;
+			audio.play("water");
 			this.fadeOut();
 		}
 	};
 	this.fadeOut = function(){
 		this.opacity -= 0.1;
 		if(this.opacity > 0.1) setTimeout(this.fadeOut.bind(this), 50);
-		else this.lost = true;
+		else this.remove = true;
 	};
 	this.begin = function() {
 		this.generateCurve();

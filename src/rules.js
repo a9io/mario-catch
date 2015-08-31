@@ -12,5 +12,6 @@ module.exports = {
 		69
 	],
 	k: 0.01,
-	pipedur: 250
+	pipedur: 250,
+	scale: 2
 };

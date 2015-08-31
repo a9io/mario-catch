@@ -1,5 +1,6 @@
 var rules = require("./rules");
 var audio = require("./audio");
+var canvas = document.getElementById("c");
 module.exports = function() {
 	this.x = 0;
 	this.y = 0;
@@ -28,8 +29,8 @@ module.exports = function() {
 		if (!this.down) this.y--;
 		else this.y++;
 		if (this.y == 80) this.down = true;
-		if (this.y < 130) setTimeout(this.tick.bind(this), rules.pipedur/50);
-		else this.animationDone();
+		if (this.y < 130) setTimeout(this.tick.bind(this), rules.pipedur / 50);
+		else if (this.y == 130) this.animationDone();
 	};
 	this.onSpawn = function(n) {
 		this.x = rules.pipes[n];
@@ -37,16 +38,29 @@ module.exports = function() {
 		this.pipen = n;
 		this.initEvent();
 	};
+	this.key = function(e) {
+		if (!this.animating) {
+			if (e.which == rules.controls[this.pipen]) {
+				this.animate();
+			}
+		}
+	};
+	this.touch = function(e) {
+		var x = (e.x - canvas.offsetLeft) / rules.scale;
+		var y = (e.y - canvas.offsetTop) / rules.scale;
+		if (!this.animating) {
+			if (x >= this.x && x <= this.x + 30) {
+				this.animate();
+			}
+		}
+	};
 	this.initEvent = function() {
 		var t = this;
 		window.addEventListener("keydown", function(e) {
-			if (e.which == rules.controls[t.pipen]) {
-				if (!t.animating) t.animate();
-			}
-			else {
-				t.animating = true;
-				setTimeout(function(){t.animating = false;}, rules.pipedur + 5);
-			}
+			t.key(e);
 		});
+		canvas.addEventListener("mousedown", function(e) {
+			t.touch(e);
+		}, false);
 	};
 };

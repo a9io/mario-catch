@@ -1,8 +1,9 @@
 var Mario = require("./mario");
 var Pipe = require("./pipe");
+//var Hurt = require("./hurt");
 var rules = require("./rules");
 module.exports = function() {
-	this.scale = 2;
+	this.scale = rules.scale;
 	this.sprites = [{
 		type: "rect",
 		name: "sky",
@@ -45,5 +46,10 @@ module.exports = function() {
 			width: 300,
 			height: 35
 		});
+	};
+	this.hurt = function(){
+		var hurt = new Hurt();
+		hurt.onSpawn();
+		this.sprites.push(hurt);
 	};
 };

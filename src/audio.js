@@ -1,4 +1,4 @@
-var names = ["jump", "pipe"];
+var names = ["jump", "pipe", "water", "score"];
 var files = {};
 module.exports = {
 	play: function(f) {
