@@ -21,6 +21,12 @@ module.exports = function(state) {
 				img.src = "assets/" + s.src;
 				ctx.drawImage(img, s.x, s.y, s.width, s.height);
 				break;
+			case "text":
+				ctx.font = s.size + "px " + s.font;
+				ctx.textAlign = s.align;
+				ctx.fillStyle = s.color;
+				ctx.fillText(s.text, s.x, s.y);
+				break;
 		}
 	});
 };

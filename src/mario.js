@@ -12,6 +12,7 @@ module.exports = function() {
 	this.name = "mario";
 	this.src = "mario.png";
 	this.remove = false;
+	this.killed = false;
 	this.fading = false;
 	this.reached = false;
 	this.destpipe = 0;
@@ -25,8 +26,7 @@ module.exports = function() {
 		var k = rules.k;
 		this.path.k = this.path.k.concat([k, k, k]);
 		var destx = rules.pipes[this.destpipe] + 15;
-		var thres = destx - (random.number(26) + 10);
-		//var thres = destx - 20;
+		var thres = destx - (random.number(20) + 20);
 
 		//climax
 		this.path.y.push(3);

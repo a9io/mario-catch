@@ -1,5 +1,6 @@
 module.exports = {
 	bottom: 300,
+	side: 250,
 	water: 115,
 	pipes: [
 		90,
@@ -13,5 +14,6 @@ module.exports = {
 	],
 	k: 0.01,
 	pipedur: 250,
-	scale: 2
+	scale: 2,
+	beginDelay: 2000
 };

@@ -1,9 +1,18 @@
 var Mario = require("./mario");
 var Pipe = require("./pipe");
+var Scoreboard = require("./scoreboard");
+var Heart = require("./heart");
 //var Hurt = require("./hurt");
 var rules = require("./rules");
 module.exports = function() {
 	this.scale = rules.scale;
+	this.time = 1;
+	this.score = 0;
+	this.lives = 3;
+	this.losing = false;
+	this.scoreboard = {};
+	this.hearts = [];
+	this.pipes = [];
 	this.sprites = [{
 		type: "rect",
 		name: "sky",
@@ -32,7 +41,16 @@ module.exports = function() {
 		for (var i = 0; i < rules.pipes.length; i++) {
 			var pipe = new Pipe();
 			pipe.onSpawn(i);
-			this.sprites.push(pipe);
+			this.pipes.push(pipe);
+			this.sprites.push(this.pipes[i]);
+		}
+	};
+	this.createHearts = function() {
+		for (var i = 0; i < 3; i++) {
+			var heart = new Heart();
+			heart.onSpawn(i);
+			this.hearts.push(heart);
+			this.sprites.push(this.hearts[i]);
 		}
 	};
 	this.createWater = function() {
@@ -47,9 +65,21 @@ module.exports = function() {
 			height: 35
 		});
 	};
-	this.hurt = function(){
-		var hurt = new Hurt();
-		hurt.onSpawn();
-		this.sprites.push(hurt);
+	this.createScore = function() {
+		this.scoreboard = new Scoreboard();
+		this.sprites.push(this.scoreboard);
+	};
+	this.lost = function() {
+		if (this.lives > 0) {
+			this.lives--;
+			this.hearts[this.lives].lose();
+		}
+		if(this.lives === 0){
+			this.losing = true;
+		}
+	};
+	this.gained = function() {
+		this.score++;
+		this.scoreboard.update(this.score);
 	};
 };

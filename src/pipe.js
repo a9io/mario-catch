@@ -32,11 +32,16 @@ module.exports = function() {
 		if (this.y < 130) setTimeout(this.tick.bind(this), rules.pipedur / 50);
 		else if (this.y == 130) this.animationDone();
 	};
+	this.rise = function(){
+		this.y--;
+		if(this.y > 130) setTimeout(this.rise.bind(this), rules.beginDelay / 100);
+		else this.initEvent();
+	};
 	this.onSpawn = function(n) {
 		this.x = rules.pipes[n];
-		this.y = 130;
+		this.y = rules.bottom-120;
 		this.pipen = n;
-		this.initEvent();
+		this.rise();
 	};
 	this.key = function(e) {
 		if (!this.animating) {
