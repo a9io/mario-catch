@@ -10,9 +10,53 @@ module.exports = function() {
 	this.score = 0;
 	this.lives = 3;
 	this.losing = false;
+	this.created = true;
 	this.scoreboard = {};
 	this.hearts = [];
 	this.pipes = [];
+	this.lostscreen = {
+		type: "text",
+		name: "lost",
+		size: "20",
+		align: "center",
+		font: "sans-serif",
+		color: "#FF0000",
+		text: "YOU LOST!",
+		x: 120,
+		y: 65
+	};
+	this.greetscreen = {
+		type: "text",
+		name: "greet",
+		size: "20",
+		align: "center",
+		font: "sans-serif",
+		color: "#6BFF63",
+		text: "MARIO CATCH",
+		x: 130,
+		y: 70
+	};
+	this.startscreen = {
+		type: "text",
+		name: "lost",
+		size: "10",
+		align: "center",
+		font: "sans-serif",
+		color: "#FFFFFF",
+		text: "press x to start. press keys to raise pipes.",
+		x: 130,
+		y: 85
+	};
+	this.instructionscreen = {
+		type: "text",
+		name: "lost",
+		size: "8",
+		font: "sans-serif",
+		color: "#FFFFFF",
+		text: "Q                   W                    E",
+		x: 155,
+		y: 110
+	};
 	this.sprites = [{
 		type: "rect",
 		name: "sky",
@@ -29,6 +73,15 @@ module.exports = function() {
 		y: 34,
 		width: 34,
 		height: 17
+	}, {
+		type: "rect",
+		name: "water",
+		color: "#15DCE2",
+		opacity: 0.5,
+		y: rules.water,
+		x: 0,
+		width: 300,
+		height: 35
 	}];
 	this.createMario = function() {
 		var mario = new Mario();
@@ -42,7 +95,7 @@ module.exports = function() {
 			var pipe = new Pipe();
 			pipe.onSpawn(i);
 			this.pipes.push(pipe);
-			this.sprites.push(this.pipes[i]);
+			this.sprites.splice(1, 0, this.pipes[i]);
 		}
 	};
 	this.createHearts = function() {
@@ -53,18 +106,6 @@ module.exports = function() {
 			this.sprites.push(this.hearts[i]);
 		}
 	};
-	this.createWater = function() {
-		this.sprites.push({
-			type: "rect",
-			name: "water",
-			color: "#15DCE2",
-			opacity: 0.5,
-			y: rules.water,
-			x: 0,
-			width: 300,
-			height: 35
-		});
-	};
 	this.createScore = function() {
 		this.scoreboard = new Scoreboard();
 		this.sprites.push(this.scoreboard);
@@ -74,12 +115,33 @@ module.exports = function() {
 			this.lives--;
 			this.hearts[this.lives].lose();
 		}
-		if(this.lives === 0){
-			this.losing = true;
+		if (this.lives === 0) {
+			this.lostGame();
 		}
 	};
 	this.gained = function() {
 		this.score++;
 		this.scoreboard.update(this.score);
+	};
+	this.lostGame = function() {
+		this.losing = true;
+		this.sprites.push(this.lostscreen);
+		this.sprites.push(this.startscreen);
+	};
+	this.create = function() {
+		this.created = true;
+		this.sprites.push(this.greetscreen);
+		this.sprites.push(this.startscreen);
+		this.sprites.push(this.instructionscreen);
+	};
+	this.started = function() {
+		this.created = false;
+		var l = this.sprites.length - 1;
+		this.sprites.splice(l, 1);
+		this.sprites.splice(l - 1, 1);
+		this.sprites.splice(l - 2, 1);
+		this.createPipes();
+		this.createScore();
+		this.createHearts();
 	};
 };
