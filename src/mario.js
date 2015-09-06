@@ -61,6 +61,12 @@ module.exports = function() {
 		this.tick();
 	};
 	this.onSpawn = function() {
+		if(random.repnumber(rules.heartspawn) == 1) {
+			this.name = "heartp";
+			this.src = "heartp.png";
+			this.width = 10;
+			this.height = 9;
+		}
 		this.begin();
 	};
 };

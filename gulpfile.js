@@ -63,7 +63,7 @@ gulp.task("build_img", function(){
 });
 
 gulp.task("build_audio", function(){
-  return gulp.src("assets/*.wav")
+  return gulp.src("assets/*.ogg")
       .pipe(gulp.dest("build/assets"));
 });
 
@@ -85,13 +85,13 @@ gulp.task('build_styles', function() {
 });
 
 gulp.task('default', function () {
-    return gulp.src('src/images/*')
+    return gulp.src('assets/*.png')
         .pipe(imagemin({
             progressive: true,
             svgoPlugins: [{removeViewBox: false}],
             use: [pngquant()]
         }))
-        .pipe(gulp.dest('dist/images'));
+        .pipe(gulp.dest('dist/assets'));
 });
 
 gulp.task('clean', function() {

@@ -7,5 +7,5 @@ module.exports = {
 };
 
 names.forEach(function(nm) {
-	files[nm] = new Audio("assets/" + nm + ".wav");
+	files[nm] = new Audio("assets/" + nm + ".ogg");
 });

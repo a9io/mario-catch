@@ -15,5 +15,6 @@ module.exports = {
 	k: 0.01,
 	pipedur: 250,
 	scale: 2,
-	beginDelay: 2000
+	beginDelay: 2000,
+	heartspawn: 25
 };

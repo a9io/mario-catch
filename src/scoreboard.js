@@ -3,7 +3,6 @@ module.exports = function(){
 	this.type = "text";
 	this.name = "score";
 	this.font = "sans-serif";
-	this.color = "#FFFFFF";
 	this.align = "right";
 	this.size = 20;
 	this.x = rules.side - 10;

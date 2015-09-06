@@ -2,7 +2,6 @@ var Mario = require("./mario");
 var Pipe = require("./pipe");
 var Scoreboard = require("./scoreboard");
 var Heart = require("./heart");
-//var Hurt = require("./hurt");
 var rules = require("./rules");
 module.exports = function() {
 	this.scale = rules.scale;
@@ -14,11 +13,11 @@ module.exports = function() {
 	this.scoreboard = {};
 	this.hearts = [];
 	this.pipes = [];
+	this.hi = 0;
 	this.lostscreen = {
 		type: "text",
 		name: "lost",
 		size: "20",
-		align: "center",
 		font: "sans-serif",
 		color: "#FF0000",
 		text: "YOU LOST!",
@@ -29,7 +28,6 @@ module.exports = function() {
 		type: "text",
 		name: "greet",
 		size: "20",
-		align: "center",
 		font: "sans-serif",
 		color: "#6BFF63",
 		text: "MARIO CATCH",
@@ -40,9 +38,7 @@ module.exports = function() {
 		type: "text",
 		name: "lost",
 		size: "10",
-		align: "center",
 		font: "sans-serif",
-		color: "#FFFFFF",
 		text: "press x to start. press keys to raise pipes.",
 		x: 130,
 		y: 85
@@ -52,7 +48,6 @@ module.exports = function() {
 		name: "lost",
 		size: "8",
 		font: "sans-serif",
-		color: "#FFFFFF",
 		text: "Q                   W                    E",
 		x: 155,
 		y: 110
@@ -65,6 +60,24 @@ module.exports = function() {
 		height: 150,
 		x: 0,
 		y: 0
+	}, {
+		type: "img",
+		name: "cloud",
+		src: "cloud.png",
+		x: 80,
+		y: 10,
+		opacity: 0.8,
+		width: 40,
+		height: 25
+	}, {
+		type: "img",
+		name: "cloud",
+		src: "cloud.png",
+		x: 150,
+		y: 30,
+		opacity: 0.8,
+		width: 24,
+		height: 15
 	}, {
 		type: "img",
 		name: "blocks",
@@ -88,14 +101,14 @@ module.exports = function() {
 		mario.onSpawn();
 		//var dbc = require("../debug/curve");
 		//this.sprites = this.sprites.concat(dbc(mario.path));
-		this.sprites.splice(1, 0, mario);
+		this.sprites.splice(3, 0, mario);
 	};
 	this.createPipes = function() {
 		for (var i = 0; i < rules.pipes.length; i++) {
 			var pipe = new Pipe();
 			pipe.onSpawn(i);
 			this.pipes.push(pipe);
-			this.sprites.splice(1, 0, this.pipes[i]);
+			this.sprites.splice(3, 0, this.pipes[i]);
 		}
 	};
 	this.createHearts = function() {
@@ -119,12 +132,20 @@ module.exports = function() {
 			this.lostGame();
 		}
 	};
+	this.hearted = function() {
+		if (this.lives < 3 && !this.losing) {
+			this.lives++;
+			this.hearts[this.lives - 1].gain();
+		}
+	};
 	this.gained = function() {
 		this.score++;
 		this.scoreboard.update(this.score);
 	};
 	this.lostGame = function() {
 		this.losing = true;
+		if (this.score > this.hi) this.setHi();
+		this.scoreboard.update("last: " + this.score + " hi: " + this.hi);
 		this.sprites.push(this.lostscreen);
 		this.sprites.push(this.startscreen);
 	};
@@ -143,5 +164,13 @@ module.exports = function() {
 		this.createPipes();
 		this.createScore();
 		this.createHearts();
+		this.getHi();
+	};
+	this.setHi = function() {
+		this.hi = this.score;
+		localStorage.setItem("hi", this.score);
+	};
+	this.getHi = function() {
+		this.hi = localStorage.getItem("hi");
 	};
 };
