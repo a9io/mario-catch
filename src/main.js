@@ -30,7 +30,7 @@ var spawn = function() {
 
 window.addEventListener("keydown", function(e) {
 	if (e.which == 88 && (state.losing || state.created)) {
-		audio.play("score");
+		audio.play("heart");
 		initialize();
 		startGame();
 	}

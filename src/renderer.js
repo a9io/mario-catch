@@ -1,6 +1,5 @@
 var canvas = document.getElementById("c");
 var ctx = canvas.getContext("2d");
-var audio = require("./audio");
 ctx.imageSmoothingEnabled = false;
 ctx.mozImageSmoothingEnabled = false;
 ctx.webkitImageSmoothlocingEnabled = false;
@@ -21,7 +20,6 @@ module.exports = function(state) {
 			} else if (p.active && (s.x > p.x && s.x < p.x + 30) && (s.y >= p.y) && !(s.fading) && !(state.losing)) {
 				s.reached = true;
 				state.sprites.splice(i, 1);
-				audio.play("score");
 				if (s.name == "mario") state.gained();
 				else state.hearted();
 			}

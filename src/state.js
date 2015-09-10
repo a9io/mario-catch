@@ -1,6 +1,7 @@
 var Mario = require("./mario");
 var Pipe = require("./pipe");
 var Scoreboard = require("./scoreboard");
+var audio = require("./audio");
 var Heart = require("./heart");
 var rules = require("./rules");
 module.exports = function() {
@@ -134,11 +135,13 @@ module.exports = function() {
 	};
 	this.hearted = function() {
 		if (this.lives < 3 && !this.losing) {
+			audio.play("heart");
 			this.lives++;
 			this.hearts[this.lives - 1].gain();
 		}
 	};
 	this.gained = function() {
+		audio.play("score");
 		this.score++;
 		this.scoreboard.update(this.score);
 	};
