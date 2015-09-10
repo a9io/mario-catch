@@ -65,7 +65,7 @@ module.exports = function() {
 		name: "cloud",
 		src: "cloud.png",
 		x: 80,
-		y: 10,
+		y: 12,
 		opacity: 0.8,
 		width: 40,
 		height: 25
@@ -73,8 +73,8 @@ module.exports = function() {
 		type: "img",
 		name: "cloud",
 		src: "cloud.png",
-		x: 150,
-		y: 30,
+		x: 160,
+		y: 35,
 		opacity: 0.8,
 		width: 24,
 		height: 15

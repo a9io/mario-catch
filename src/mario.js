@@ -22,7 +22,7 @@ module.exports = function() {
 		k: [rules.k, rules.k, rules.k]
 	};
 	this.generateCurve = function() {
-		this.destpipe = random.repnumber(rules.pipes.length);
+		this.destpipe = random.repnumber(rules.pipes.length, 0);
 		var k = rules.k;
 		this.path.k = this.path.k.concat([k, k, k]);
 		var destx = rules.pipes[this.destpipe] + 15;
@@ -61,7 +61,7 @@ module.exports = function() {
 		this.tick();
 	};
 	this.onSpawn = function() {
-		if(random.repnumber(rules.heartspawn) == 1) {
+		if(random.repnumber(rules.heartspawn, 1) == 1) {
 			this.name = "heartp";
 			this.src = "heartp.png";
 			this.width = 10;
