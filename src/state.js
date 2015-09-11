@@ -22,8 +22,8 @@ module.exports = function() {
 		font: "sans-serif",
 		color: "#FF0000",
 		text: "YOU LOST!",
-		x: 120,
-		y: 65
+		x: 130,
+		y: 70
 	};
 	this.greetscreen = {
 		type: "text",
