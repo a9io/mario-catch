@@ -1,6 +1,7 @@
 var Mario = require("./mario");
 var Pipe = require("./pipe");
 var Scoreboard = require("./scoreboard");
+var spawner = require("./spawner");
 var audio = require("./audio");
 var Heart = require("./heart");
 var rules = require("./rules");
@@ -174,6 +175,14 @@ module.exports = function() {
 		this.createScore();
 		this.createHearts();
 		this.getHi();
+	};
+	this.spawn = function(){
+		if (!this.losing) {
+			this.createMario();
+			var t = spawner(this.time);
+			this.time += t;
+			setTimeout(this.spawn.bind(this), t);
+		}
 	};
 	this.setHi = function() {
 		this.hi = this.score;

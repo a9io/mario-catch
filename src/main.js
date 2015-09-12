@@ -3,7 +3,6 @@ var raf = require("./raf");
 var audio = require("./audio");
 var State = require("./state");
 var rules = require("./rules");
-var spawner = require("./spawner");
 var state;
 
 var initialize = function() {
@@ -17,16 +16,7 @@ var initialize = function() {
 var startGame = function() {
 	audio.play("heart");
 	state.started();
-	setTimeout(spawn, rules.beginDelay);
-};
-
-var spawn = function() {
-	if (!state.losing) {
-		state.createMario();
-		var t = spawner(state.time);
-		state.time += t;
-		setTimeout(spawn, t);
-	}
+	setTimeout(state.spawn.bind(state), rules.beginDelay);
 };
 
 window.addEventListener("keydown", function(e) {
