@@ -21,7 +21,7 @@ module.exports = function() {
 		name: "lost",
 		size: "20",
 		font: "sans-serif",
-		color: "#FF0000",
+		color: "#BE0000",
 		text: "YOU LOST!",
 		x: 130,
 		y: 70

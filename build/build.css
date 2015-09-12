@@ -1,16 +1,19 @@
 body {
 	background-color: #508EFF;
+	font-family: "Arial", sans-serif;
+	color: #FFFFFF;
 	text-align: center;
 }
+
 #container {
 	width: 100%;
 }
 #instructions {
-	text-align: center;
 	font-size: 15px;
-	font-family: "Arial", "Sans-Serif";
-	color: #FFFFFF;
 	margin: 15px;
+}
+footer {
+	font-size: 12px;
 }
 canvas {
 	image-rendering: optimizeSpeed;
