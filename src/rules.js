@@ -13,10 +13,10 @@ module.exports = {
 		69
 	],
 	k: 0.01,
-	pipedur: 250,
+	pipedur: 100,
 	scale: 2,
 	beginDelay: 2000,
 	heartspawn: 25,
 	bombspawn: 15,
-	spawn: 500
+	spawn: 100
 };
