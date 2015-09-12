@@ -15,6 +15,7 @@ var initialize = function() {
 };
 
 var startGame = function() {
+	audio.play("heart");
 	state.started();
 	setTimeout(spawn, rules.beginDelay);
 };
@@ -30,7 +31,13 @@ var spawn = function() {
 
 window.addEventListener("keydown", function(e) {
 	if (e.which == 88 && (state.losing || state.created)) {
-		audio.play("heart");
+		initialize();
+		startGame();
+	}
+});
+
+document.getElementById("c").addEventListener("mousedown", function(e){
+	if(state.losing || state.created){
 		initialize();
 		startGame();
 	}

@@ -10,7 +10,7 @@ module.exports = function(state) {
 	ctx.scale(state.scale, state.scale);
 	var pipes = state.pipes;
 	state.sprites.forEach(function(s, i) {
-		if (s.name == "mario" || s.name == "heartp") {
+		if (s.name == "mario" || s.name == "heartp" || s.name == "bomb") {
 			var p = pipes[s.destpipe];
 			if (s.remove) {
 				state.sprites.splice(i, 1);
@@ -19,9 +19,14 @@ module.exports = function(state) {
 				s.killed = true;
 			} else if (p.active && (s.x > p.x && s.x < p.x + 30) && (s.y >= p.y) && !(s.fading) && !(state.losing)) {
 				s.reached = true;
-				state.sprites.splice(i, 1);
-				if (s.name == "mario") state.gained();
-				else state.hearted();
+				if (s.name == "bomb") {
+					state.lostGame();
+					s.explode();
+				} else {
+					if (s.name == "mario") state.gained(s.destpipe);
+					else state.hearted();
+					state.sprites.splice(i, 1);
+				}
 			}
 		} else if (s.remove) {
 			state.sprites.splice(i, 1);

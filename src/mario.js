@@ -40,14 +40,28 @@ module.exports = function() {
 		this.path.y.push(rules.water);
 		this.path.x.push(destx);
 	};
+	this.explode = function() {
+		audio.play("bomb");
+		this.fading = true;
+		this.type = "rect";
+		this.color = "#FFFFFF";
+		this.width = rules.side;
+		this.height = rules.bottom;
+		this.x = 0;
+		this.y = 0;
+		this.fadeOut();
+	};
 	this.tick = function() {
 		if (this.x > this.path.x[1]) this.y = curve(this.x, this.path); // curve if not on deck
-		if (this.x == this.path.x[1] + 10) audio.play("jump");
+		if (this.x == this.path.x[1] + 10) {
+			if(this.name == "bomb") audio.play("sizzle");
+			else audio.play("jump");
+		}
 		this.x++;
-		if (this.y < rules.water) setTimeout(this.tick.bind(this), 10);
+		if (this.y < rules.water && !this.fading) setTimeout(this.tick.bind(this), 10);
 		else if (!this.reached) {
 			this.fading = true;
-			audio.play("water");
+			if (this.name != "bomb") audio.play("water");
 			this.fadeOut();
 		}
 	};
@@ -60,12 +74,17 @@ module.exports = function() {
 		this.generateCurve();
 		this.tick();
 	};
-	this.onSpawn = function() {
-		if(random.repnumber(rules.heartspawn, 1) == 1) {
+	this.onSpawn = function(heart) {
+		if (random.repnumber(rules.heartspawn, 1) == 1 && heart) {
 			this.name = "heartp";
 			this.src = "heartp.png";
 			this.width = 10;
 			this.height = 9;
+		} else if (random.repnumber(rules.bombspawn, 2) == 1) {
+			this.name = "bomb";
+			this.src = "bomb.png";
+			this.width = 12;
+			this.height = 14;
 		}
 		this.begin();
 	};

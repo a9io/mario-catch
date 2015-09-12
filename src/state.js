@@ -98,8 +98,10 @@ module.exports = function() {
 		height: 35
 	}];
 	this.createMario = function() {
+		var hrt = false;
+		if(this.lives < 3) hrt = true;
 		var mario = new Mario();
-		mario.onSpawn();
+		mario.onSpawn(hrt);
 		//var dbc = require("../debug/curve");
 		//this.sprites = this.sprites.concat(dbc(mario.path));
 		this.sprites.splice(3, 0, mario);
@@ -140,13 +142,17 @@ module.exports = function() {
 			this.hearts[this.lives - 1].gain();
 		}
 	};
-	this.gained = function() {
-		audio.play("score");
+	this.gained = function(p) {
+		audio.play("score" + p);
 		this.score++;
 		this.scoreboard.update(this.score);
 	};
 	this.lostGame = function() {
 		this.losing = true;
+		this.lives = 0;
+		this.hearts.forEach(function(item){
+			item.lose();
+		});
 		if (this.score > this.hi) this.setHi();
 		this.scoreboard.update("last: " + this.score + " hi: " + this.hi);
 		this.sprites.push(this.lostscreen);

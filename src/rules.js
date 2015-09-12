@@ -17,5 +17,6 @@ module.exports = {
 	scale: 2,
 	beginDelay: 2000,
 	heartspawn: 25,
+	bombspawn: 15,
 	spawn: 500
 };
