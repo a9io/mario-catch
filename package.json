@@ -26,10 +26,8 @@
     "vinyl-source-stream": "^0.1.1"
   },
   "scripts": {
-    "build": "gulp build",
     "dist": "gulp dist --prod",
-    "start": "gulp watch serve",
-    "test": "gulp lint"
+    "start": "gulp watch serve"
   },
   "dependencies": {}
 }
