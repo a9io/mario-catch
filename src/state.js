@@ -180,6 +180,6 @@ module.exports = function() {
 		localStorage.setItem("hi", this.score);
 	};
 	this.getHi = function() {
-		this.hi = localStorage.getItem("hi");
+		if(localStorage.getItem("hi")) this.hi = localStorage.getItem("hi");
 	};
 };
